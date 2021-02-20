@@ -2,6 +2,11 @@ classdef SolverTestCycling < matlab.unittest.TestCase
     methods(Test)
         function testglobal(testCase)
             
+        actualpath = pwd;
+        cd .. 
+        cd ..
+        Installation;
+        cd(actualpath);
         Main;
         
         path_expectation = 'JOTH_Fin_125HzModif_Expected';
