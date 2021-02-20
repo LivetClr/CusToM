@@ -3,6 +3,3 @@ language: matlab
 matlab:
   - latest  # Default MATLAB release on Travis CI
   - R2020a
-
-
-script: matlab -batch 'disp("Hello World")'
