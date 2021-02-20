@@ -1,4 +1,5 @@
 language: matlab
 
 matlab:
-  - R2019b
+  - latest  # Default MATLAB release on Travis CI
+  - R2020a
