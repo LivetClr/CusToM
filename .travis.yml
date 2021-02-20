@@ -5,5 +5,5 @@ matlab:
   - R2020a
 
 install:
-  - mv CusToM/Tests/btk-0.3.0_Linux_MatlabR2009a_64bit/btk/lib/* /usr/local/lib 
+  - mv Tests/btk-0.3.0_Linux_MatlabR2009a_64bit/btk/lib/* /usr/local/lib 
   - sudo ldconfig
