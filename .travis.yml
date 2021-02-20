@@ -1,8 +1,7 @@
 language: matlab
 
 matlab:
-  - latest  # Default MATLAB release on Travis CI
-  - R2020a
+  - R2019b
 
 install:
   - sudo mv Tests/btk-0.3.0_Linux_MatlabR2009a_64bit/btk/lib/* /usr/local/lib 
