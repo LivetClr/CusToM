@@ -1,7 +1,7 @@
 language: matlab
 
 matlab:
-  - R2019b
+  - later
 
 install:
   - sudo mv Tests/btk-0.3.0_Linux_MatlabR2009a_64bit/btk/lib/* /usr/local/lib 
