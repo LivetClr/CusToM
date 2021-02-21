@@ -74,7 +74,7 @@ classdef SolverTestCycling < matlab.unittest.TestCase
         
         
         
-        function MuscleComputation(testCase)
+        function MuscleComputationTest(testCase)
             
             actualpath = pwd;
             cd ..
