@@ -39,7 +39,7 @@ classdef SolverTestCycling < matlab.unittest.TestCase
             MuscleForcesComputationResults_Expected = load([path_expectation, '/MuscleForcesComputationResults.mat']);
             MuscleForcesComputationResults = load([path, '/MuscleForcesComputationResults.mat']);
             
-            testCase.assertEqual(MuscleForcesComputationResults,MuscleForcesComputationResults_Expected,'RelTol',1e-3,'AbsTol',1e-3);
+            testCase.assertEqual(MuscleForcesComputationResults,MuscleForcesComputationResults_Expected,'RelTol',1e-2,'AbsTol',1e-2);
             
         end
         
@@ -87,7 +87,7 @@ classdef SolverTestCycling < matlab.unittest.TestCase
             MuscleForcesComputationResults_Expected = load([path_expectation, '/MuscleForcesComputationResults.mat']);
             MuscleForcesComputationResults = load([path, '/MuscleForcesComputationResults.mat']);
             
-            testCase.assertEqual(MuscleForcesComputationResults,MuscleForcesComputationResults_Expected,'RelTol',1e-3,'AbsTol',1e-3);
+            testCase.assertEqual(MuscleForcesComputationResults,MuscleForcesComputationResults_Expected,'RelTol',1e-2,'AbsTol',1e-2);
         end
     end
 end
