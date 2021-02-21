@@ -1,6 +1,6 @@
 classdef SolverTestCycling < matlab.unittest.TestCase
     methods(Test)
-        function KinematicTest(testCase)
+        function ResultsTestWithoutComputingHumanModel(testCase)
             
             actualpath = pwd;
             cd ..
@@ -8,116 +8,7 @@ classdef SolverTestCycling < matlab.unittest.TestCase
             Installation;
             cd(actualpath);
             
-            load('AnalysisParameters.mat');
-            
-            InverseKinematics(AnalysisParameters);
-            
-            path_expectation = 'JOTH_Fin_125HzModif_Expected';
-            path =  'JOTH_Fin_125HzModif';
-            
-            
-            InverseKinematicsResults_Expected = load([path_expectation, '/InverseKinematicsResults.mat']);
-            InverseKinematicsResults = load([path, '/InverseKinematicsResults.mat']);
-            
-            testCase.assertEqual(InverseKinematicsResults,InverseKinematicsResults_Expected,'AbsTol',1e-4);
-            
-        end
-        
-        function ExperimentalDataTest(testCase)
-            
-            actualpath = pwd;
-            cd ..
-            cd ..
-            Installation;
-            cd(actualpath);
-            
-            load('AnalysisParameters.mat');
-            load('ModelParameters.mat');
-            
-            InverseKinematics(AnalysisParameters);
-            ExternalForcesComputation(AnalysisParameters, ModelParameters);
-
-            path_expectation = 'JOTH_Fin_125HzModif_Expected';
-            path =  'JOTH_Fin_125HzModif';
-            
-            
-            InverseKinematicsResults_Expected = load([path_expectation, '/InverseKinematicsResults.mat']);
-            InverseKinematicsResults = load([path, '/InverseKinematicsResults.mat']);
-            
-            testCase.assertEqual(InverseKinematicsResults,InverseKinematicsResults_Expected,'AbsTol',1e-4);
-            
-               
-            ExperimentalData_Expected = load([path_expectation, '/ExperimentalData.mat']);
-            ExperimentalData = load([path, '/ExperimentalData.mat']);
-            
-            testCase.assertEqual(ExperimentalData,ExperimentalData_Expected,'AbsTol',1e-4);
-            
-            ExternalForcesComputationResults_Expected = load([path_expectation, '/ExternalForcesComputationResults.mat']);
-            ExternalForcesComputationResults = load([path, '/ExternalForcesComputationResults.mat']);
-            
-            testCase.assertEqual(ExternalForcesComputationResults,ExternalForcesComputationResults_Expected,'AbsTol',1e-4);
-          
-
-            
-        end
-        
-        
-        function InverseDynamicsTest(testCase)
-            
-            actualpath = pwd;
-            cd ..
-            cd ..
-            Installation;
-            cd(actualpath);
-            
-            load('AnalysisParameters.mat');
-            load('ModelParameters.mat');
-            
-            InverseKinematics(AnalysisParameters);
-            ExternalForcesComputation(AnalysisParameters, ModelParameters);
-
-            path_expectation = 'JOTH_Fin_125HzModif_Expected';
-            path =  'JOTH_Fin_125HzModif';
-            
-            
-            InverseKinematicsResults_Expected = load([path_expectation, '/InverseKinematicsResults.mat']);
-            InverseKinematicsResults = load([path, '/InverseKinematicsResults.mat']);
-            
-            testCase.assertEqual(InverseKinematicsResults,InverseKinematicsResults_Expected,'AbsTol',1e-4);
-            
-               
-            ExperimentalData_Expected = load([path_expectation, '/ExperimentalData.mat']);
-            ExperimentalData = load([path, '/ExperimentalData.mat']);
-            
-            testCase.assertEqual(ExperimentalData,ExperimentalData_Expected,'RelTol',1e-4);
-
-             ExternalForcesComputationResults_Expected = load([path_expectation, '/ExternalForcesComputationResults.mat']);
-            ExternalForcesComputationResults = load([path, '/ExternalForcesComputationResults.mat']);
-            
-            testCase.assertEqual(ExternalForcesComputationResults,ExternalForcesComputationResults_Expected,'AbsTol',1e-4);
-          
-            
-             InverseDynamicsResults_Expected = load([path_expectation, '/InverseDynamicsResults.mat']);
-            InverseDynamicsResults = load([path, '/InverseDynamicsResults.mat']);
-            
-            testCase.assertEqual(InverseDynamicsResults,InverseDynamicsResults_Expected,'AbsTol',1e-4);
-
-        end
-        
-                
-        function MuscleForcesTest(testCase)
-            
-            actualpath = pwd;
-            cd ..
-            cd ..
-            Installation;
-            cd(actualpath);
-            
-            load('AnalysisParameters.mat');
-            load('ModelParameters.mat');
-            
-            InverseKinematics(AnalysisParameters);
-            ExternalForcesComputation(AnalysisParameters, ModelParameters);
+            Main;
 
             path_expectation = 'JOTH_Fin_125HzModif_Expected';
             path =  'JOTH_Fin_125HzModif';
