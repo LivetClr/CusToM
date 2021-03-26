@@ -4,7 +4,7 @@ function [] = InverseKinematics(AnalysisParameters,varargin)
 %   biomechanical model
 %
 %	Based on:
-% 	- Lu, T. W., & O’connor, J. J. (1999). 
+% 	- Lu, T. W., & Oï¿½connor, J. J. (1999). 
 %	Bone position estimation from skin marker co-ordinates using global optimisation with joint constraints. Journal of biomechanics, 32(2), 129-134.
 %
 %   INPUT
@@ -39,14 +39,53 @@ for i = 1:numel(AnalysisParameters.filename)
     else
         filename = AnalysisParameters.filename{i}(1:end-(numel(AnalysisParameters.General.Extension)-1));
         if AnalysisParameters.IK.Method == 1
-            [ExperimentalData, InverseKinematicsResults] = InverseKinematicsOpti(filename,AnalysisParameters,BiomechanicalModel); % Optimization method
-        elseif AnalysisParameters.IK.Method == 2
+            
+            [ExperimentalData, InverseKinematicsResults] =  InverseKinematicsOpti(filename,AnalysisParameters,BiomechanicalModel);
+
+            
+            save([filename '/ExperimentalData'],'ExperimentalData');
+            save([filename '/InverseKinematicsResults_0'],'InverseKinematicsResults');
+%             sigma = 3e-2;
+%             tiragesx1 = randn(1,100)*sigma;
+%             tiragesx2 = randn(1,100)*sigma;
+%             tiragesx3 = randn(1,100)*sigma;
+%             tiragesy1 = randn(1,100)*sigma;
+%             tiragesy2 = randn(1,100)*sigma;
+%             tiragesy3 = randn(1,100)*sigma;
+%             
+%             Tirages.tiragesxTS = tiragesx1;
+%             Tirages.tiragesyTS = tiragesy1;           
+%             Tirages.tiragesxAA = tiragesx2;
+%             Tirages.tiragesyAA = tiragesy2;            
+%             Tirages.tiragesxAI = tiragesx3;
+%             Tirages.tiragesyAI = tiragesy3;
+%             
+%             cpt =1;
+%             
+%             for dx1 = tiragesx1
+%                 for dx2 = tiragesx2
+%                     for dx3 = tiragesx3
+%                         for dy1 = tiragesy1
+%                             for dy2 = tiragesy2
+%                                 for dy3 = tiragesy3
+%                                         Bruit.depfixe = [dx1 dy1 ; dx2 dy2 ; dx3 dy3];
+%                                         Bruit.sigma_suivi = 3e-2;
+%                                         [ExperimentalData, InverseKinematicsResults] =  InverseKinematicsOptiAjoutdeBruit(filename,AnalysisParameters,BiomechanicalModel,Bruit);
+%                                         InverseKinematicsResults.Bruit = Bruit;
+%                                         save([filename '/InverseKinematicsResults' cpt],'InverseKinematicsResults');
+%                                         cpt = cpt+1;
+%                                 end
+%                             end
+%                         end
+%                     end
+%                 end
+%             end
+                                        
+       elseif AnalysisParameters.IK.Method == 2
             [ExperimentalData, InverseKinematicsResults] = InverseKinematicsLM(filename,AnalysisParameters,BiomechanicalModel); % Levenberg-Marquardt algorithm
         end
 
         % Save data
-        save([filename '/ExperimentalData'],'ExperimentalData');
-        save([filename '/InverseKinematicsResults'],'InverseKinematicsResults');
     end
 end
 

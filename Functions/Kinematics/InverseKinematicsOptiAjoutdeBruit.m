@@ -1,4 +1,4 @@
-function [ExperimentalData, InverseKinematicResults] = InverseKinematicsOpti(filename,AnalysisParameters,BiomechanicalModel)
+function [ExperimentalData, InverseKinematicResults] = InverseKinematicsOptiAjoutdeBruit(filename,AnalysisParameters,BiomechanicalModel,Bruit)
 % Computation of the inverse kinematics step thanks to a sqp optimization method
 %
 %   INPUT
@@ -49,7 +49,32 @@ end
 %% Getting real markers position from the c3d file
 [real_markers, nb_frame, Firstframe, Lastframe,f_mocap] = Get_real_markers(filename,list_markers, AnalysisParameters); %#ok<ASGLU>
 
+%% Find real_markers corresponding to scapula locator
 
+[~, idxAA] = intersect([real_markers.name],'ScapLocAA');
+[~, idxAI] = intersect([real_markers.name],'ScapLocAI');
+[~, idxTS] = intersect([real_markers.name],'ScapLocTS');
+
+%% Frame construction, using the first frame
+% TS->AA axis
+x = real_markers(idxAA).position(1,:) - real_markers(idxTS).position(1,:) ;
+x = x/norm(x);
+temp_axis = real_markers(idxTS).position(1,:)- real_markers(idxAI).position(1,:);
+% Normale au plan de la scapula
+normale = cross(x,temp_axis);
+y = cross(normale,x);
+y=y/norm(y);
+
+% Déplacement fixe
+real_markers(idxTS).position = real_markers(idxTS).position + Bruit.depfixe(1,1)*x + Bruit.depfixe(1,2)*y;
+real_markers(idxAA).position = real_markers(idxAA).position + Bruit.depfixe(2,1)*x + Bruit.depfixe(2,2)*y;
+real_markers(idxAI).position = real_markers(idxAI).position + Bruit.depfixe(3,1)*x + Bruit.depfixe(3,2)*y;
+
+% Déplacement variable dû au suivi de la trajectoire
+sigma = Bruit.sigma_suivi;
+real_markers(idxTS).position = real_markers(idxTS).position + sigma*randn(nb_frame,1)*x +  sigma*randn(nb_frame,1)*y;
+real_markers(idxAA).position = real_markers(idxAA).position +  sigma*randn(nb_frame,1)*x +  sigma*randn(nb_frame,1)*y;
+real_markers(idxAI).position = real_markers(idxAI).position +  sigma*randn(nb_frame,1)*x +  sigma*randn(nb_frame,1)*y;
 
 
 %% Root position
