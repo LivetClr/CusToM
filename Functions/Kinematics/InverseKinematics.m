@@ -45,41 +45,41 @@ for i = 1:numel(AnalysisParameters.filename)
             
             save([filename '/ExperimentalData'],'ExperimentalData');
             save([filename '/InverseKinematicsResults_0'],'InverseKinematicsResults');
-%             sigma = 3e-2;
-%             tiragesx1 = randn(1,100)*sigma;
-%             tiragesx2 = randn(1,100)*sigma;
-%             tiragesx3 = randn(1,100)*sigma;
-%             tiragesy1 = randn(1,100)*sigma;
-%             tiragesy2 = randn(1,100)*sigma;
-%             tiragesy3 = randn(1,100)*sigma;
-%             
-%             Tirages.tiragesxTS = tiragesx1;
-%             Tirages.tiragesyTS = tiragesy1;           
-%             Tirages.tiragesxAA = tiragesx2;
-%             Tirages.tiragesyAA = tiragesy2;            
-%             Tirages.tiragesxAI = tiragesx3;
-%             Tirages.tiragesyAI = tiragesy3;
-%             
-%             cpt =1;
-%             
-%             for dx1 = tiragesx1
-%                 for dx2 = tiragesx2
-%                     for dx3 = tiragesx3
-%                         for dy1 = tiragesy1
-%                             for dy2 = tiragesy2
-%                                 for dy3 = tiragesy3
-%                                         Bruit.depfixe = [dx1 dy1 ; dx2 dy2 ; dx3 dy3];
-%                                         Bruit.sigma_suivi = 3e-2;
-%                                         [ExperimentalData, InverseKinematicsResults] =  InverseKinematicsOptiAjoutdeBruit(filename,AnalysisParameters,BiomechanicalModel,Bruit);
-%                                         InverseKinematicsResults.Bruit = Bruit;
-%                                         save([filename '/InverseKinematicsResults' cpt],'InverseKinematicsResults');
-%                                         cpt = cpt+1;
-%                                 end
-%                             end
-%                         end
-%                     end
-%                 end
-%             end
+            sigma = 0.5e-2;
+            tiragesx1 = randn(1,100)*sigma;
+            tiragesx2 = randn(1,100)*sigma;
+            tiragesx3 = randn(1,100)*sigma;
+            tiragesy1 = randn(1,100)*sigma;
+            tiragesy2 = randn(1,100)*sigma;
+            tiragesy3 = randn(1,100)*sigma;
+            
+            Tirages.tiragesxTS = tiragesx1;
+            Tirages.tiragesyTS = tiragesy1;           
+            Tirages.tiragesxAA = tiragesx2;
+            Tirages.tiragesyAA = tiragesy2;            
+            Tirages.tiragesxAI = tiragesx3;
+            Tirages.tiragesyAI = tiragesy3;
+            
+            cpt =1;
+            
+            for dx1 = tiragesx1
+                for dx2 = tiragesx2
+                    for dx3 = tiragesx3
+                        for dy1 = tiragesy1
+                            for dy2 = tiragesy2
+                                for dy3 = tiragesy3
+                                       Bruit.depfixe = [dx1 dy1 ; dx2 dy2 ; dx3 dy3];
+                                        Bruit.sigma_suivi = 3e-2;
+                                        [~, InverseKinematicsResults] =  InverseKinematicsOptiAjoutdeBruit(filename,AnalysisParameters,BiomechanicalModel,Bruit);
+                                        InverseKinematicsResults.Bruit = Bruit;
+                                        save([filename '/InverseKinematicsResults_' num2str(cpt)],'InverseKinematicsResults');
+                                        cpt = cpt+1;
+                                end
+                            end
+                        end
+                    end
+                end
+            end
                                         
        elseif AnalysisParameters.IK.Method == 2
             [ExperimentalData, InverseKinematicsResults] = InverseKinematicsLM(filename,AnalysisParameters,BiomechanicalModel); % Levenberg-Marquardt algorithm

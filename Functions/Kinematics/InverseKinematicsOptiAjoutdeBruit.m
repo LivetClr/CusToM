@@ -56,7 +56,7 @@ end
 [~, idxTS] = intersect([real_markers.name],'ScapLocTS');
 
 %% Frame construction, using the first frame
-% TS->AA axis
+TS->AA axis
 x = real_markers(idxAA).position(1,:) - real_markers(idxTS).position(1,:) ;
 x = x/norm(x);
 temp_axis = real_markers(idxTS).position(1,:)- real_markers(idxAI).position(1,:);
@@ -76,6 +76,9 @@ real_markers(idxTS).position = real_markers(idxTS).position + sigma*randn(nb_fra
 real_markers(idxAA).position = real_markers(idxAA).position +  sigma*randn(nb_frame,1)*x +  sigma*randn(nb_frame,1)*y;
 real_markers(idxAI).position = real_markers(idxAI).position +  sigma*randn(nb_frame,1)*x +  sigma*randn(nb_frame,1)*y;
 
+% real_markers(3).position = real_markers(3).position +  Bruit.depfixe(1,1)*[0 0 1] + Bruit.depfixe(1,2)*[0 1 0];
+% real_markers(4).position = real_markers(4).position +  Bruit.depfixe(1,1)*[0 0 1] + Bruit.depfixe(1,2)*[0 1 0];
+% real_markers(5).position = real_markers(5).position +  Bruit.depfixe(1,1)*[0 0 1] + Bruit.depfixe(1,2)*[0 1 0];
 
 %% Root position
 Base_position=cell(nb_frame,1);
