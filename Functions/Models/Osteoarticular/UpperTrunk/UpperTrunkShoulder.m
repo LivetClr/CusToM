@@ -39,5 +39,5 @@ function [OsteoArticularModel]= UpperTrunkShoulder(OsteoArticularModel,k,Mass,At
 [OsteoArticularModel] = Scapula_Shoulder(OsteoArticularModel,k,Mass,'R','R_Thorax_EllipsoidNode',varargin);
 
 % Left-sided shoulder solids
-[OsteoArticularModel] = Clavicle_Shoulder(OsteoArticularModel,k,Mass,'L','Thorax_scjJointLeftNode');
-[OsteoArticularModel] = Scapula_Shoulder(OsteoArticularModel,k,Mass,'L','L_Thorax_EllipsoidNode',varargin);
+% [OsteoArticularModel] = Clavicle_Shoulder(OsteoArticularModel,k,Mass,'L','Thorax_scjJointLeftNode');
+% [OsteoArticularModel] = Scapula_Shoulder(OsteoArticularModel,k,Mass,'L','L_Thorax_EllipsoidNode',varargin);

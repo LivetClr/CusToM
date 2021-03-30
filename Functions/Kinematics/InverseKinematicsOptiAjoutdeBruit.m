@@ -56,7 +56,7 @@ end
 [~, idxTS] = intersect([real_markers.name],'ScapLocTS');
 
 %% Frame construction, using the first frame
-TS->AA axis
+%TS->AA axis
 x = real_markers(idxAA).position(1,:) - real_markers(idxTS).position(1,:) ;
 x = x/norm(x);
 temp_axis = real_markers(idxTS).position(1,:)- real_markers(idxAI).position(1,:);
