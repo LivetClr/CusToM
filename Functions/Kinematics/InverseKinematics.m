@@ -39,20 +39,22 @@ for i = 1:numel(AnalysisParameters.filename)
     else
         filename = AnalysisParameters.filename{i}(1:end-(numel(AnalysisParameters.General.Extension)-1));
         if AnalysisParameters.IK.Method == 1
-            
-            [ExperimentalData, InverseKinematicsResults] =  InverseKinematicsOpti(filename,AnalysisParameters,BiomechanicalModel);
+             sigma = varargin{2};
 
+           % [ExperimentalData, InverseKinematicsResults] =  InverseKinematicsOpti(filename,AnalysisParameters,BiomechanicalModel);
+            if ~exist([filename,'_',num2str(sigma)],'dir')
+                mkdir([filename,'_',num2str(sigma)])
+            end
             
-            save([filename '/ExperimentalData'],'ExperimentalData');
-            save([filename '/InverseKinematicsResults_0'],'InverseKinematicsResults');
-            sigma = 1.5e-2;
-            
-            for cpt = 1:100
+        %    save([filename,'_',num2str(sigma), '/ExperimentalData'],'ExperimentalData');
+          %  save([filename ,'_',num2str(sigma),  '/InverseKinematicsResults_0'],'InverseKinematicsResults');
+
+            for cpt = 1:varargin{3}
                Bruit.depfixe =randn(3,2)*sigma;
                 Bruit.sigma_suivi = 0;
                 [~, InverseKinematicsResults] =  InverseKinematicsOptiAjoutdeBruit(filename,AnalysisParameters,BiomechanicalModel,Bruit);
                 InverseKinematicsResults.Bruit = Bruit;
-                save([filename '/InverseKinematicsResults_' num2str(cpt)],'InverseKinematicsResults');
+                save([filename,'_',num2str(sigma), '/InverseKinematicsResults_' num2str(cpt+100)],'InverseKinematicsResults');
             end
                                         
        elseif AnalysisParameters.IK.Method == 2
