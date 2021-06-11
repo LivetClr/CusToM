@@ -101,6 +101,7 @@ end
 h = waitbar(0,['Inverse Kinematics (' filename ')']);
 % 1st frame : classical optimization
 
+
 if ~isfield(BiomechanicalModel,'ClosedLoopData')
     q0=zeros(nb_solid,1);
     positions = zeros(3, length(real_markers));
@@ -132,6 +133,7 @@ zeta = 20;
 
 waitbar(1/nb_frame)
 
+
 optionsLM = optimset('Algorithm','Levenberg-Marquardt','Display','off','MaxIter',4e6,'MaxFunEval',5e6);
 positions = zeros(3, length(real_markers));
 for f = 2:nb_frame
@@ -142,8 +144,9 @@ for f = 2:nb_frame
     end
     
     fun = @(q) CostFunctionLM(q,positions(:),gamma,hclosedloophandle,zeta,buteehandle);
+%    q(:,f)= lsqnonlin(fun,q0,[],[],optionsLM);
+%    q(:,f)= lsqnonlin(fun,q(:,f-1)+0.4*rand(length(q0),1),[],[],optionsLM);
     q(:,f)= lsqnonlin(fun,q(:,f-1),[],[],optionsLM);
-    
     waitbar(f/nb_frame)
     
 end
@@ -151,7 +154,7 @@ close(h)
 %% Data processing
 if AnalysisParameters.IK.FilterActive
     % data filtering
-    q=filt_data(q',AnalysisParameters.IK.FilterCutOff,f_mocap)';
+    %q=filt_data(q',AnalysisParameters.IK.FilterCutOff,f_mocap)';
 end
 
 % Error computation

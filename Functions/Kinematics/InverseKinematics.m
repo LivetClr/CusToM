@@ -4,7 +4,7 @@ function [] = InverseKinematics(AnalysisParameters,varargin)
 %   biomechanical model
 %
 %	Based on:
-% 	- Lu, T. W., & O’connor, J. J. (1999). 
+% 	- Lu, T. W., & O’connor, J. J. (1999).
 %	Bone position estimation from skin marker co-ordinates using global optimisation with joint constraints. Journal of biomechanics, 32(2), 129-134.
 %
 %   INPUT
@@ -36,17 +36,22 @@ end
 for i = 1:numel(AnalysisParameters.filename)
     if isequal(AnalysisParameters.General.InputData, @MVNX_V3) % Load inverse kinematics from a MVNX
         MVNXInverseKinematics(AnalysisParameters.filename{i}(1:end-(numel(AnalysisParameters.General.Extension)-1)), AnalysisParameters);
-   else
+    else
         filename = AnalysisParameters.filename{i}(1:end-(numel(AnalysisParameters.General.Extension)-1));
-       if AnalysisParameters.IK.Method == 1
-           [ExperimentalData, InverseKinematicsResults] = InverseKinematicsOpti(filename,AnalysisParameters,BiomechanicalModel); % Optimization method
-       elseif AnalysisParameters.IK.Method == 2
-            [ExperimentalData, InverseKinematicsResults] = InverseKinematicsLM(filename,AnalysisParameters,BiomechanicalModel); % Levenberg-Marquardt algorithm
-        end
-
+%         tic;
+%         [~, InverseKinematicsResults] = InverseKinematicsOpti(filename,AnalysisParameters,BiomechanicalModel); % Optimization method
+%         elapsed = toc();
+%         InverseKinematicsResults.elapsed_time = elapsed;
+%         save([filename '/InverseKinematicsResults_Opti'],'InverseKinematicsResults');
+%         
+        tic;
+        [ExperimentalData, InverseKinematicsResults] = InverseKinematicsLM(filename,AnalysisParameters,BiomechanicalModel); % Levenberg-Marquardt algorithm
+        elapsed = toc();
+        InverseKinematicsResults.elapsed_time = elapsed;
+        save([filename '/InverseKinematicsResults_LM'],'InverseKinematicsResults');
+        
         % Save data
         save([filename '/ExperimentalData'],'ExperimentalData');
-        save([filename '/InverseKinematicsResults'],'InverseKinematicsResults');
     end
 end
 
