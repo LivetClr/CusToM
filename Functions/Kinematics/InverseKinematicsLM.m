@@ -98,7 +98,7 @@ else
 end
 
 
-h = waitbar(0,['Inverse Kinematics (' filename ')']);
+%h = waitbar(0,['Inverse Kinematics (' filename ')']);
 % 1st frame : classical optimization
 
 
@@ -131,7 +131,7 @@ buteehandle = @(q)  Limits(q,l_inf1,l_sup1);
 gamma = 100;
 zeta = 20;
 
-waitbar(1/nb_frame)
+%waitbar(1/nb_frame)
 
 
 optionsLM = optimset('Algorithm','Levenberg-Marquardt','Display','off','MaxIter',4e6,'MaxFunEval',5e6);
@@ -147,10 +147,10 @@ for f = 2:nb_frame
 %    q(:,f)= lsqnonlin(fun,q0,[],[],optionsLM);
 %    q(:,f)= lsqnonlin(fun,q(:,f-1)+0.4*rand(length(q0),1),[],[],optionsLM);
     q(:,f)= lsqnonlin(fun,q(:,f-1),[],[],optionsLM);
-    waitbar(f/nb_frame)
+    %waitbar(f/nb_frame)
     
 end
-close(h)
+%close(h)
 %% Data processing
 if AnalysisParameters.IK.FilterActive
     % data filtering
