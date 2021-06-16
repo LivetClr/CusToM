@@ -38,18 +38,20 @@ for i = 1:numel(AnalysisParameters.filename)
         MVNXInverseKinematics(AnalysisParameters.filename{i}(1:end-(numel(AnalysisParameters.General.Extension)-1)), AnalysisParameters);
     else
         filename = AnalysisParameters.filename{i}(1:end-(numel(AnalysisParameters.General.Extension)-1));
-%         tic;
-%         [~, InverseKinematicsResults] = InverseKinematicsOpti(filename,AnalysisParameters,BiomechanicalModel); % Optimization method
-%         elapsed = toc();
-%         InverseKinematicsResults.elapsed_time = elapsed;
-%         save([filename '/InverseKinematicsResults_Opti'],'InverseKinematicsResults');
-%         
         tic;
         [ExperimentalData, InverseKinematicsResults] = InverseKinematicsLM(filename,AnalysisParameters,BiomechanicalModel); % Levenberg-Marquardt algorithm
         elapsed = toc();
         InverseKinematicsResults.elapsed_time = elapsed;
         save([filename '/InverseKinematicsResults_LM'],'InverseKinematicsResults');
         
+       
+        tic;
+        [~, InverseKinematicsResults] = InverseKinematicsOpti(filename,AnalysisParameters,BiomechanicalModel); % Optimization method
+        elapsed = toc();
+        InverseKinematicsResults.elapsed_time = elapsed;
+        save([filename '/InverseKinematicsResults_Opti'],'InverseKinematicsResults');
+        
+
         % Save data
         save([filename '/ExperimentalData'],'ExperimentalData');
     end
